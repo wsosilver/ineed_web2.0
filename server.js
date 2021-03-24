@@ -1,14 +1,15 @@
-const express = require('express');
-var path = require('path');
+//Install express server
+const express = require("express");
+const path = require("path");
+
 const app = express();
 
-app.use(express.static(path.join(__dirname, 'dist/ineed-web')));
+// Sirva apenas os arquivos estáticos do diretório dist
+app.use(express.static(__dirname + "/dist/ineed-web"));
 
-app.get('*', function(req, res) {
-    res.sendFile(path.join(__dirname, 'dist/ineed-web/index.html'));
+app.get("/*", function(req, res) {
+    res.sendFile(path.join(__dirname + "/dist/ineed-web/index.html"));
 });
 
-app.listen(8081, () => {
-    console.log('Server started!');
-    console.log('on port 8081');
-});
+// Inicie o aplicativo ouvindo na porta padrão do Heroku
+app.listen(process.env.PORT || 8080);
