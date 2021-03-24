@@ -1,0 +1,71 @@
+@import 'themes';
+
+@import '~@nebular/theme/styles/globals';
+
+@include nb-install() {
+  @include nb-theme-global();
+};
+/* You can add global styles to this file, and also import other style files */
+
+.orangeButton {
+  padding: 10px;
+  background-color: orangered;
+  color: white;
+  border: unset;
+  width: 100px;
+  height: 40px;
+  position: relative;
+  float: left;
+  font-weight: 800;
+}
+
+.orangeButton:hover {
+  background-color: rgb(192, 69, 24);
+}
+
+.orangeButton:focus {
+  outline: none;
+}
+
+.square {
+  margin-left: 10px;
+  margin-right: 10px;
+  width: auto;
+  position: relative;
+  float: left;
+}
+
+.search-bar {
+  height: 40px;
+  position: relative;
+  float: right;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.search-bar:hover {
+  outline: orangered;
+  border: solid 2px orangered;
+}
+
+.search-bar:focus {
+  outline: orangered;
+  border: solid 2px orangered;
+}
+
+.form-group {
+  .input {
+    width: stretch;
+    padding: 10px;
+    height: 45px;
+    margin-bottom: 5px;
+    border: solid 1px gray;
+  }
+}
+
+.page-item.active .page-link {
+  z-index: 1;
+  color: #fff;
+  background-color: orangered !important;
+  border-color: orangered !important;
+}

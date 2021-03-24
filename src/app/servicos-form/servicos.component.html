@@ -1,0 +1,34 @@
+<div class="modal-body">
+    <form [formGroup]="resourceForm">
+        <div class="form-group">
+            <div class="container">
+                <label>Nome:</label><br>
+                <input name="nome" formControlName="nome">
+                <br><br>
+                
+                <label>Descricao:</label><br>
+                <textarea name="email" formControlName="descricao"></textarea>
+                <br><br>
+
+                <label>Inativo:</label><br>
+                <select name="endereco" formControlName="inativo"> 
+                    <option [ngValue]="true">Sim</option>
+                    <option [ngValue]="false">Não</option>
+                </select>
+                <br><br>
+
+                <div *ngIf="CATEGORIALIST">
+                    <label>Categoria:</label><br>
+                    <select formControlName="categoriaId">
+                        <option *ngFor="let categoria of CATEGORIALIST" [ngValue]="categoria.id">{{ categoria.valor }}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="modal-footer">
+    <button *ngIf="!isEditMode" type="button" class="btn btn-outline-dark" (click)="enviar()">Adicionar</button>
+    <button *ngIf="isEditMode" type="button" class="btn btn-outline-dark" (click)="atualizar()">Atualizar</button>
+</div>

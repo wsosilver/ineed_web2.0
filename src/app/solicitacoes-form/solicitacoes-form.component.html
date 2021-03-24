@@ -1,0 +1,83 @@
+<ng-template #nopic>
+    <span style="color: gray;">Sem Imagem</span>
+</ng-template>
+
+<div class="modal-body">
+    <form [formGroup]="resourceForm">
+        <div class="form-group">
+            <div class="container">
+
+                <label>Fotos:</label><br>
+                <div *ngIf="imgList.length > 0; else nopic">
+    
+                    <div *ngFor="let img of imgList">
+                        <img id="imglist" src="{{ imgEnvr }}/{{ img.valor }}" >
+                    </div>
+                </div>
+                <br><br>
+
+                <label>Cliente:</label><br>
+                <input name="nomeCliente" formControlName="nomeCliente">
+                <br><br>
+
+                <label>Serviço:</label><br>
+                <input name="nomeCliente" formControlName="servicoNome">
+                <br><br>
+
+                <label>Categoria:</label><br>
+                <input name="nomeCliente" formControlName="servicoCategoria">
+                <br><br>
+
+                <label>Info:</label><br>
+
+                <div>
+                    <table>
+                        <tr>
+                            <td><input style="width: 20px;" type="checkbox" name="material" formControlName="material"></td>
+                            <td>Fornecer Material</td>
+                        </tr>
+                        <tr>
+                            <td><input style="width: 20px;" type="checkbox" name="urgente" formControlName="urgente"></td>
+                            <td>Urgente</td>
+                        </tr>
+                    </table>
+                </div>
+                <br><br>
+
+                <!-- <label>I:</label><br>
+                <input name="nomeCliente" formControlName="nomeCliente">
+                <br><br> -->
+
+                <label>Observação:</label><br>
+                <textarea name="observacao" formControlName="observacao"></textarea>
+                <br><br>
+
+                <label>E-mail:</label><br>
+                <input name="emailCliente" formControlName="emailCliente">
+                <br><br>
+
+                <label>Endereço:</label><br>
+                <input name="endereco" formControlName="endereco">
+                <br><br>
+
+                <label>Prazo:</label><br>
+                <input name="dataFinal" formControlName="dataFinal">
+                <br><br>
+
+                <button class="reactivate" (click)="reactivate()">Reativar Solicitação</button>
+<!-- 
+                <label>Ativo:</label><br>
+                <select name="endereco" formControlName="ativo"> 
+                    <option [ngValue]="true">Sim</option>
+                    <option [ngValue]="false">Não</option>
+                </select>
+                <br><br> -->
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="modal-footer" *ngIf="false">
+    <button *ngIf="!isEditMode" type="button" class="btn btn-outline-dark" (click)="enviar()">Adicionar</button>
+    <button *ngIf="isEditMode" type="button" class="btn btn-outline-dark" (click)="atualizar()">OK</button>
+</div>

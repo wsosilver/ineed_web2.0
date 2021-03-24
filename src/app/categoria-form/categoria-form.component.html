@@ -1,0 +1,26 @@
+<div class="modal-body">
+        <form [formGroup]="resourceForm">
+            <div class="form-group">
+                <div class="container">
+                    <label>Nome:</label><br>
+                    <input name="nome" formControlName="valor">
+                    <br><br>
+
+                    <label>Imagem:</label><br>
+                    <input type="File" (input)="onFileChange($event)" accept="image/png, image/jpeg" name="imagem">
+                    <br><br>
+
+                    <label>Inativo:</label><br>
+                    <select name="endereco" formControlName="inativo"> 
+                        <option [ngValue]="true">Sim</option>
+                        <option [ngValue]="false">Não</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+    <div class="modal-footer">
+        <button *ngIf="!isEditMode" type="button" class="btn btn-outline-dark" (click)="enviar()">Adicionar</button>
+        <button *ngIf="isEditMode" type="button" class="btn btn-outline-dark" (click)="atualizar()">Atualizar</button>
+    </div>

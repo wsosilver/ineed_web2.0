@@ -1,0 +1,18 @@
+form input {
+  width: stretch;
+  height: 40px;
+  padding: 8px;
+  border: 1px solid gray;
+}
+form input:focus {
+  outline: orangered;
+}
+form select {
+  width: stretch;
+  height: 40px;
+  padding: 8px;
+  border: 1px solid gray;
+}
+form select:focus {
+  outline: orangered;
+}

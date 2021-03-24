@@ -1,0 +1,168 @@
+<nb-card nbSpinnerStatus="warning" [nbSpinner]="TABLE_LOADING">
+    <nb-card-header>
+        <button *ngIf="!HIDE_NEW" class="orangeButton"                              (click)="sendModalData('add')">                                  <nb-icon icon="plus-outline" style="margin-right: 10px"></nb-icon>NOVO</button>
+        <button placement="top" ngbTooltip="Filtros"    class="orangeButton square" (click)="sendModalData('filter')">                               <nb-icon icon="funnel"></nb-icon></button>
+        <button placement="top" ngbTooltip="Ocultar"    class="orangeButton square" (click)="open(hiders)" style="margin-left: 0">                   <nb-icon icon="eye"></nb-icon></button>
+        <button placement="top" ngbTooltip="Pesquisar"  class="orangeButton square" (click)="emitSearch()" style="position: relative; float: right"> <nb-icon icon="search-outline"></nb-icon></button>
+        <input [(ngModel)]="searchInput" class="search-bar" style="position: relative; float: right" placeholder="Pesquise por um nome">
+    </nb-card-header>
+    <nb-card-body>      
+        <table class="table table-striped">
+            <thead *ngIf="HEADERLIST">
+            <tr>
+                <th *ngFor="let t of HEADERLIST"><a *ngIf="t.visivel" scope="col">{{ t.titulo }}</a></th>
+                <th>Ações</th>
+            </tr>
+            </thead>
+            <tbody @fadein *ngIf="CONTENTLIST">
+                <tr *ngFor="let item of CONTENTLIST | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+                    <td *ngFor="let t of HEADERLIST">
+                        <a *ngIf="t.visivel">
+                            <span *ngIf="t.titulo != 'Tipo'     
+                            && t.titulo != 'Categoria'          
+                            && t.titulo != 'Categorias'         
+                            && t.titulo != 'Ativo'              
+                            && t.titulo != 'Inativo'            
+                            && t.titulo != 'Confirmado'         
+                            && t.titulo != 'Concluida'          
+                            && t.titulo != 'Email'              
+                            && t.titulo != 'Imagem'             
+                            && t.titulo != 'Desconto'           
+                            && t.titulo != 'Colaborador'        
+                            && t.titulo != 'Endereço'        
+                            && t.titulo != 'Status'        
+                            && t.titulo != 'Data de Criação'        
+                            && t.titulo != 'Data de Entrega'        
+                            && t.titulo != 'Valor'              
+                            && t.titulo != 'Prazo'              
+                            && t.titulo != 'Avaliação'">{{ item[t.key] }}</span>
+                            <span *ngIf="t.titulo == 'Tipo'">
+                                <span>{{ item?.tipo?.valor }}</span>
+                            </span>
+                            <span *ngIf="t.titulo == 'Status'">
+                                <span [style.background-color]="getElementColor(item.status)" style="color: white; padding: 8px; border-radius: 8px; font-size: 10px;">{{ item?.status }}</span>
+                            </span>
+                            <span *ngIf="t.titulo == 'Prazo'">
+                                <span>{{ item?.dataFinal | date:'dd/MM/yyyy' }} </span>
+                            </span>
+                            <span *ngIf="t.titulo == 'Data de Criação'">
+                                <span>{{ item?.dataCriacao | date:'dd/MM/yyyy' }} às {{ item?.dataCriacao | date:'HH:mm' }}</span>
+                            </span>
+                            <span *ngIf="t.titulo == 'Data de Entrega'">
+                                <span>{{ item?.dataEntrega | date:'dd/MM/yyyy' }}</span>
+                            </span>
+                            <span *ngIf="t.titulo == 'Endereço'">
+                                <span>{{ item?.endereco | slice:0:15 }} <span *ngIf="item.endereco.length > 15">...</span></span>
+                            </span>
+                            <span *ngIf="t.titulo == 'Categoria'">
+                                <span>{{ item?.categoria?.valor }}</span>
+                            </span>
+                            <span *ngIf="t.titulo == 'Imagem'">
+                                <!-- <span>{{ item.imagem }}</span> -->
+                                <img width="65" height="65" [src]="getResource(item.imagem)">
+                            </span>
+                            <span *ngIf="t.titulo == 'Categorias' && item.servicoSolicitacao[0]">
+                                <span *ngIf="item.servicoSolicitacao[0].servico">{{ item?.servicoSolicitacao[0]?.servico?.categoria?.valor }}</span>
+                            </span>
+                            <span *ngIf="t.titulo == 'Valor'">
+                                <span>{{ item?.valor | currency: 'BRL' }}</span>
+                            </span>
+                            <span *ngIf="t.titulo == 'Desconto'">
+                                <span>{{ item?.desconto | currency: 'BRL' }}</span>
+                            </span>
+                            <!-- <span *ngIf="t.titulo == 'Colaborador' && item.usuarioCollaborador[0]">
+                                <span>{{ item?.usuarioCollaborador[0]?.nome || 'NENHUM' }}</span>
+                            </span> -->
+                            <span *ngIf="t.titulo == 'Colaborador'">
+                                <span *ngIf="item.usuarioCollaborador.length > 0">
+                                    <span *ngFor="let colaborator of item.usuarioCollaborador">{{ colaborator?.nome || 'NENHUM' }}<b *ngIf="item.usuarioCollaborador.length > 1">, </b></span>
+                                </span>    
+                                <span *ngIf="item.usuarioCollaborador.length == 0">Nenhum</span>
+                            </span>
+                            <span *ngIf="t.titulo == 'Ativo'">
+                                <span *ngIf="item.ativo">Sim</span>
+                                <span *ngIf="!item.ativo">Não</span>
+                            </span>
+                            <span *ngIf="t.titulo == 'Inativo'">
+                                <span *ngIf="item.inativo">Sim</span>
+                                <span *ngIf="!item.inativo">Não</span>
+                            </span>
+                            <span *ngIf="t.titulo == 'Concluida'">
+                                <span *ngIf="item.concluido">Sim</span>
+                                <span *ngIf="!item.concluido">Não</span>
+                            </span>
+                            <span *ngIf="t.titulo == 'Email'">
+                                <span *ngIf="item.usuarioCollaborador.length > 0">
+                                    <span *ngFor="let colaborator of item.usuarioCollaborador">{{ colaborator.email || 'NENHUM' }}<b *ngIf="item.usuarioCollaborador.length > 1">, </b></span>
+                                </span>    
+                                <span *ngIf="item.usuarioCollaborador.length == 0">Nenhum</span>
+                            </span>
+                            <span *ngIf="t.titulo == 'Confirmado'">
+                                <span *ngIf="item.pago">Sim</span>
+                                <span *ngIf="!item.pago">Não</span>
+                            </span>
+                            <span *ngIf="t.titulo == 'Avaliação'">
+                                <span *ngIf="item.avaliacao">{{ item?.avaliacao?.nota }} / 5</span>
+                                <span *ngIf="!item.avaliacao">N/A</span>
+                            </span>
+                        </a>
+                    </td>
+                    <td>
+                        <nb-icon *ngIf="!NO_EDIT && !ONLY_SEE" id="edit-icon" placement="top" ngbTooltip="Editar" style="cursor: pointer" icon="edit-2-outline" (click)="sendEditData(item)"></nb-icon>
+                        <nb-icon *ngIf="ONLY_SEE" id="eye-icon" placement="top" ngbTooltip="Visualizar" style="cursor: pointer" icon="eye-outline" (click)="sendEditData(item, true)"></nb-icon>
+                        <nb-icon *ngIf="!NO_EXCLUDE" id="remove-icon" placement="top" ngbTooltip="Desativar" style="color: brown; cursor: pointer" icon="trash-2-outline" (click)="open(confirm, item, false)"></nb-icon>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    
+        <div *ngIf="CONTENTLIST">
+            <ngb-pagination class="d-flex justify-content-center" 
+                [collectionSize]="CONTENTLIST.length" 
+                [(page)]="page" 
+                [pageSize]="pageSize" 
+                [maxSize]="5" 
+                [rotate]="true" 
+                [boundaryLinks]="true">
+            </ngb-pagination>
+        </div>
+    </nb-card-body>
+</nb-card>
+    
+<ng-template #hiders let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Mostrar</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form *ngIf="HEADERLIST">
+            <div *ngFor="let t of HEADERLIST">
+                <input style="margin: 0; margin-right: 10px; padding: 0; height: 10px;" [(checked)]="t.visivel" (change)="consoleHeader(t.key)" type="checkbox">
+                <span>{{t.titulo}}</span>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('SHOW')">Confirmar</button>
+    </div>
+</ng-template>
+
+<ng-template #confirm let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-title">Atenção</h4>
+        <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p><strong>Tem certeza que deseja inativar <strong style="color: brown;">{{ TEMPITEM.nome }}</strong>?</strong></p>
+        <!-- <p>Todas as informações do mesmo serão pemanentemente perdidas.</p> -->
+        <div><span class="text-danger">O {{ REMOVE_TITLE }} será inativado!</span></div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">Cancelar</button>
+        <button type="button" class="btn btn-danger" (click)="modal.close('DELETE')">Desativar</button>
+    </div>
+</ng-template>

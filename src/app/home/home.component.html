@@ -1,0 +1,104 @@
+<!-- <app-alert [ErrorMenssages]="ERROR_MENSAGES"></app-alert> -->
+
+<ng-template #loading>
+    Carregador..
+</ng-template>
+
+<nb-card>
+    <nb-card-header>
+        Painel
+    </nb-card-header>
+    <nb-card-body>
+        
+        <div class="container" align="center" *ngIf="pievalid; else loading">
+            <div class="row">
+              <div class="col-md">
+                <h1>Usuários</h1>
+                <div style="display: block;" *ngIf="pievalid">
+                    <h5>Total: {{USUARIOS.length}} </h5>
+                    <canvas baseChart 
+                        [data]="pieChartData" 
+                        [labels]="pieChartLabels" 
+                        [chartType]="pieChartType"
+                        [options]="pieChartOptions"
+                        [plugins]="pieChartPlugins"
+                        [legend]="pieChartLegend">
+                    </canvas>
+                </div>
+              </div>
+              <div class="col-md">
+                <h1>Solicitações</h1>
+                <div style="display: block;" *ngIf="pievalid">
+                    <h5>Total: {{SOLICITACOES.length}} </h5>
+                    <canvas baseChart 
+                        [data]="pieSolicitacaoValues" 
+                        [labels]="pieSolicitacao" 
+                        [chartType]="pieChartType"
+                        [options]="pieChartOptions"
+                        [plugins]="pieChartPlugins"
+                        [legend]="pieChartLegend">
+                    </canvas>
+                </div>       
+              </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md">
+                    <h1>Visitas</h1>
+                    <div style="display: block;" *ngIf="pievalid">
+                        <h5>Total: {{VISITAS}} </h5>
+                        <canvas baseChart 
+                            [data]="pieVisitData" 
+                            [labels]="pieVisita" 
+                            [chartType]="pieChartType"
+                            [options]="pieChartOptions"
+                            [plugins]="pieChartPlugins"
+                            [legend]="pieChartLegend">
+                        </canvas>
+                    </div>       
+                </div>
+                <div class="col-md">
+                    <h1>Visitas</h1>
+                    <div style="display: block;" *ngIf="pievalid">
+                        <h5>Total: {{VISITAS}} </h5>
+                        <canvas baseChart 
+                            [data]="pieVisitData" 
+                            [labels]="pieVisita" 
+                            [chartType]="pieChartType"
+                            [options]="pieChartOptions"
+                            [plugins]="pieChartPlugins"
+                            [legend]="pieChartLegend">
+                        </canvas>
+                    </div>       
+                </div>
+            </div>
+
+            <h1>Número de Solicitações por Serviços</h1>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                    <th scope="col">Serviço</th>
+                    <th scope="col">Solicitações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let servico of ORDENER; let i = index">
+                        <div *ngFor="let ser of servico; let z = index">
+                            <td *ngIf="z == 0">{{ ser.nome }}</td>
+                        </div>
+                        <td>{{ ORDENER[i].length }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+    </nb-card-body>
+
+    <ng-template #loading>
+        <div>
+            Carregando...
+        </div>
+    </ng-template>
+</nb-card>

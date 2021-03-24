@@ -1,0 +1,33 @@
+
+form {
+    input {
+        width: stretch;
+        height: 40px;
+        padding: 8px;
+        border: 1px solid gray;
+    }
+    select {
+        width: stretch;
+        height: 40px;
+        padding: 8px;
+        border: 1px solid gray;
+    }
+    textarea {
+        width: stretch;
+        height: 80px;
+        padding: 8px;
+        border: 1px solid gray;
+    }
+}
+#imglist {
+    max-width: 200px;
+    max-height: 200px;
+}
+
+.reactivate {
+    width: stretch;
+    height: 50px;
+    color: white;
+    background-color: orangered;
+    border: unset;
+}

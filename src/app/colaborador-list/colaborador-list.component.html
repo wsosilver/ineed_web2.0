@@ -1,0 +1,95 @@
+<app-alert [(ErrorMenssages)]="ERROR_MENSAGES" [(SuccessMensage)]="SUCCESS_MENSAGES"></app-alert>
+
+<div *ngIf="DATALIST; else loading">
+    <app-data-table 
+        [TABLE_LOADING]         = "TABLE_LOADING"
+        REMOVE_TITLE            = "Usuário"
+        [REMOVEMODAL_LOADING]   = "REMOVEMODAL_LOADING"
+        [HEADERLIST]            = "HEADERLIST"
+        [CONTENTLIST]           = "DATALIST.usuario" 
+        (showModal)             = "openModal($event)"
+        (searchValue)           = "procurar($event)"
+        (editElement)           = "saveEditData($event)"
+        (removeElement)         = "deletar($event)">
+    </app-data-table>
+</div>
+
+<ng-template #loading>
+    <div align="center">
+        <h1 style="font-size: 20px; color: orangered">Carregando...</h1>
+    </div> 
+</ng-template>
+
+<ng-template #filters let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Filtros</h4>
+        <button id="closeFilterModal" type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="filterForm" nbSpinnerStatus="warning" [nbSpinner]="FILTERMODAL_LOADING">
+            <label>Nome:</label><br>
+            <input formControlName="nome">
+            <br><br>
+            <label>Email:</label><br>
+            <input formControlName="email">
+            <br><br>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Tipo:</label><br>
+                    <select name="cpf" formControlName="tipoId">
+                        <option [ngValue]="1">Pessoa Física</option>
+                        <option [ngValue]="2">Pessoa Jurídica</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label>CPF/CNPJ:</label><br>
+                    <input name="cpf" formControlName="cpfCnpj" [brmasker]="{person: true}">
+                    <br><br>
+                </div>
+            </div>  
+            
+            <label>Inativo:</label><br>
+            <select name="endereco" formControlName="inativo"> 
+                <option [ngValue]="true">Sim</option>
+                <option [ngValue]="false">Não</option>
+            </select>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="clearFilterForm()">Limpar Filtros</button>
+        <button type="button" class="btn btn-outline-dark" (click)="filtrar()">Filtrar</button>
+    </div>
+</ng-template>
+
+<ng-template #submitForm let-modal>
+    <app-alert [(ErrorMenssages)]="ERROR_MODAL_MENSAGES"></app-alert>
+
+    <div nbSpinnerStatus="warning" [nbSpinner]="ADDMODAL_LOADING">
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Adicionar {{TITLE}}</h4>
+            <button id="closeAddModal" type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <app-colaborador-form [isEditMode]="false" (RecourceFormData)="adicionar($event)"></app-colaborador-form>
+    </div>
+</ng-template>
+
+<ng-template #editForm let-modal>
+   <app-alert [(ErrorMenssages)]="ERROR_MODAL_MENSAGES"></app-alert>
+
+    <div nbSpinnerStatus="warning" [nbSpinner]="EDITMODAL_LOADING">
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Atualizar '{{ TEMPITEM.nome  | slice: 0:15}}<a *ngIf="TEMPITEM.nome.length > 15">...</a>'</h4>
+            <button id="closeEditModal" type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <app-colaborador-form [isEditMode]="true" [EditFormData]="TEMPITEM" (EditElement)="atualizar($event)"></app-colaborador-form>
+    </div>
+</ng-template>

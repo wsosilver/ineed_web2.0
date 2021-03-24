@@ -1,0 +1,20 @@
+nb-layout-header {
+    background-color: orangered;
+
+    button {
+        color: white;
+        border: unset;
+        background: unset;
+        height: 50px;
+        width: 50px
+    }
+
+    img {
+        width: 80px;
+        margin-left: 20px;
+    }
+
+    nb-icon {
+        font-size: 30px !important;
+    }
+}

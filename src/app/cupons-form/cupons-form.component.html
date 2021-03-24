@@ -1,0 +1,42 @@
+<div class="modal-body">
+    <form [formGroup]="resourceForm" >
+        <div class="form-group">
+
+            <div class="container">
+                <div *ngIf="CUPOMDISABLED">
+                    <label>Código:</label><br>
+                    <input name="emailCliente" formControlName="codigo">
+                    <br><br>
+                </div>
+
+                <label>Uso Máximo:</label><br>
+                <input name="emailCliente" formControlName="usoMaximo">
+                <br><br>
+
+                <div *ngIf="!CUPOMDISABLED">
+                    <label>Desconto:</label><br>
+                    <input name="emailCliente" formControlName="desconto">
+                    <br><br>
+                </div>
+
+                <!-- <label>Categoria:</label><br>
+                <input name="categoriaId" formControlName="categoriaId">
+                <br><br> -->
+
+                <!-- <div *ngIf="CUPOMDISABLED">
+                    <label>Ativo:</label><br>
+                    <select name="endereco" formControlName="ativo"> 
+                        <option [ngValue]="true">Sim</option>
+                        <option [ngValue]="false">Não</option>
+                    </select>
+                </div> -->
+                <br><br>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="modal-footer">
+    <button *ngIf="!isEditMode" type="button" class="btn btn-outline-dark" (click)="enviar()">Adicionar</button>
+    <button *ngIf="isEditMode" type="button" class="btn btn-outline-dark" (click)="atualizar()">Atualizar</button>
+</div>

@@ -1,0 +1,11 @@
+<nb-alert *ngIf="ErrorMenssages" status="danger" closable (close)="onClose()">
+    <h3 style="color: white">Ops!</h3>
+    <ol>
+        <li style="color: white" *ngFor="let e of ErrorMenssages">{{ e }}</li>
+    </ol>
+</nb-alert>
+
+<nb-alert *ngIf="SuccessMensage" status="success" closable (close)="onClose()">
+    <h3 style="color: white">Sucesso!</h3>
+    <span style="color: white"> {{ SuccessMensage }} </span>
+</nb-alert>

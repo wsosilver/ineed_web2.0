@@ -1,0 +1,48 @@
+<div class="modal-body">
+    <form [formGroup]="resourceForm">
+        <div class="form-group">
+            <div class="container">
+                <label>Cliente:</label><br>
+                <input name="nome" formControlName="nomeCliente">
+                <br><br>
+
+                <label>Email:</label><br>
+                <input name="nome" formControlName="emailCliente">
+                <br><br>
+
+                <label>Colaborador:</label><br>
+                <input name="nome" formControlName="nome">
+                <br><br>
+                
+                <label>Descrição:</label><br>
+                <textarea name="email" formControlName="observacao"></textarea>
+                <br><br>
+
+                <label>Cod de Pagamento Cielo</label><br>
+                <input name="nome" formControlName="codcielo">
+                <br><br>
+                
+                
+                <!-- 
+                <label>Inativo:</label><br>
+                <select name="endereco" formControlName="inativo"> 
+                    <option [ngValue]="true">Sim</option>
+                    <option [ngValue]="false">Não</option>
+                </select>
+                <br><br> -->
+
+                <div *ngIf="CATEGORIALIST">
+                    <label>Categoria:</label><br>
+                    <select formControlName="categoriaId">
+                        <option *ngFor="let categoria of CATEGORIALIST" [ngValue]="categoria.id">{{ categoria.valor }}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="modal-footer" *ngIf="false">
+    <button *ngIf="!isEditMode" type="button" class="btn btn-outline-dark" (click)="enviar()">Adicionar</button>
+    <button *ngIf="isEditMode" type="button" class="btn btn-outline-dark" (click)="atualizar()">Atualizar</button>
+</div>

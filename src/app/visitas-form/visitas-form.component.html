@@ -1,0 +1,37 @@
+<div class="modal-body">
+    <form [formGroup]="resourceForm">
+        <div class="form-group">
+            <div class="container">           
+
+                <label>Cliente:</label><br>
+                <input name="nomeCliente" formControlName="cliente">
+                <br><br>
+
+                <label>Colaborador:</label><br>
+                <input name="nomeCliente" formControlName="nome">
+                <br><br>
+
+                <label>E-mail:</label><br>
+                <input name="emailCliente" formControlName="email">
+                <br><br>
+
+                <label>Valor:</label><br>
+                <input name="Valor" formControlName="valor">
+                <br><br>
+
+                <label>Valor:</label><br>
+                <textarea name="Valor" formControlName="observacao"></textarea>
+                <br><br>
+
+                <!-- <label>Prazo:</label><br>
+                <input type="date" name="dataFinal" formControlName="dataFinal">
+                <br><br> -->
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="modal-footer" *ngIf="!VISUALIZATIONMODE">
+    <button *ngIf="!isEditMode" type="button" class="btn btn-outline-dark" (click)="enviar()">Adicionar</button>
+    <button *ngIf="isEditMode" type="button" class="btn btn-outline-dark" (click)="atualizar()">Atualizar</button>
+</div>

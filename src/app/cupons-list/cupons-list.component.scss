@@ -1,0 +1,19 @@
+table {
+    width: stretch;
+    text-align: center;
+}
+
+form {
+    input {
+        width: stretch;
+        height: 40px;
+        padding: 8px;
+        border: 1px solid gray;
+    }
+    select {
+        width: stretch;
+        height: 40px;
+        padding: 8px;
+        border: 1px solid gray;
+    }
+}

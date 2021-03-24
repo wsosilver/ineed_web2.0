@@ -1,0 +1,101 @@
+<app-alert [(ErrorMenssages)]="ERROR_MENSAGES" [(SuccessMensage)]="SUCCESS_MENSAGES"></app-alert>
+
+<div *ngIf="DATALIST; else loading">
+    <app-data-table 
+        [TABLE_LOADING]         = "TABLE_LOADING"
+        [REMOVEMODAL_LOADING]   = "REMOVEMODAL_LOADING"
+        [HEADERLIST]            = "HEADERLIST"
+        [CONTENTLIST]           = "DATALIST.cupom" 
+        [HIDE_NEW]              = "false"
+        (showModal)             = "openModal($event)"
+        (searchValue)           = "procurar($event)"
+        (editElement)           = "saveEditData($event)"
+        (removeElement)         = "deletar($event)">
+    </app-data-table>
+</div>
+
+<ng-template #loading>
+    <div align="center">
+        <h1 style="font-size: 20px; color: orangered">Carregando...</h1>
+    </div> 
+</ng-template>
+    
+<ng-template #filters let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Filtros</h4>
+        <button id="closeFilterModal" type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div nbSpinnerStatus="warning" [nbSpinner]="FILTERMODAL_LOADING">
+    <div class="modal-body">
+        <form [formGroup]="filterForm" >
+            <div class="form-group">
+
+                <div class="container">                           
+                    <label>Desconto:</label><br>
+                    <input name="emailCliente" formControlName="desconto">
+                    <br><br>
+                
+                    <label>Código:</label><br>
+                    <input name="emailCliente" formControlName="codigo">
+                    <br><br>
+
+                    <label>Uso Máximo:</label><br>
+                    <input name="emailCliente" formControlName="usoMaximo">
+                    <br><br>
+
+                    <label>Ultilizado:</label><br>
+                    <input name="emailCliente" formControlName="utilizado">
+                    <br><br>
+
+                    <!-- <label>Categoria:</label><br>
+                    <input name="categoriaId" formControlName="categoriaId">
+                    <br><br> -->
+<!-- 
+                    <label>Ativo:</label><br>
+                    <select name="endereco" formControlName="ativo"> 
+                        <option [ngValue]="true">Sim</option>
+                        <option [ngValue]="false">Não</option>
+                    </select> -->
+                    <br><br>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="clearFilterForm()">Limpar Filtros</button>
+        <button type="button" class="btn btn-outline-dark" (click)="filtrar()">Filtrar</button>
+    </div>
+    </div>
+</ng-template>
+
+<ng-template #submitForm let-modal>
+    <app-alert [(ErrorMenssages)]="ERROR_MODAL_MENSAGES"></app-alert>
+
+    <div nbSpinnerStatus="warning" [nbSpinner]="ADDMODAL_LOADING">
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Adicionar {{TITLE}}</h4>
+            <button id="closeAddModal" type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <app-cupons-form [isEditMode]="false" (RecourceFormData)="adicionar($event)" [CUPOMDISABLED]="false"></app-cupons-form>
+    </div>
+</ng-template>
+
+<ng-template #editForm let-modal>
+   <app-alert [(ErrorMenssages)]="ERROR_MODAL_MENSAGES"></app-alert>
+
+    <div nbSpinnerStatus="warning" [nbSpinner]="EDITMODAL_LOADING">
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Atualizar {{ TEMPITEM.codigo }}</h4>
+            <button id="closeEditModal" type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <app-cupons-form [isEditMode]="true" [EditFormData]="TEMPITEM" (EditElement)="atualizar($event)" [CUPOMDISABLED]="true"></app-cupons-form>
+    </div>
+</ng-template>

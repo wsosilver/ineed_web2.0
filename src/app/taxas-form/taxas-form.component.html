@@ -1,0 +1,30 @@
+<app-alert [(ErrorMenssages)]="ERROR_MENSAGES" [(SuccessMensage)]="SUCCESS_MENSAGES"></app-alert>
+
+<div class="row d-flex justify-content-center">
+
+<nb-card>
+    <nb-card-body>
+        <div class="modal-body">
+            <form [formGroup]="resourceForm">
+                <div class="form-group">
+                    <div class="container">
+                        <label>Valor:</label><br>
+                        <input name="nome" formControlName="taxaVisitasUrgentes" [brmasker]="{money: true, thousand: '.',  decimalCaracter: ',', decimal: '2'}">
+                        <br><br>
+
+                        <label>Máximo de Parcelas do Orçamento:</label><br>
+                        <input type="number" name="nome" formControlName="maximoParcelas">
+                        <br><br>
+                    </div>
+                </div>
+                
+            </form>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark" (click)="send()">Adicionar</button>
+            <!-- <button *ngIf="isEditMode" type="button" class="btn btn-outline-dark" (click)="atualizar()">Atualizar</button> -->
+        </div>
+    </nb-card-body>
+</nb-card>
+</div>
