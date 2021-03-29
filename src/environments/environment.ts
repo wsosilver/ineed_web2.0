@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   // apiUrl:   'http://ineedapiweb-prod.us-east-2.elasticbeanstalk.com/api',
-  imageUrl: "http://ineedapiapp-prod.us-east-2.elasticbeanstalk.com",
+  imageUrl: "http://ineedapiweb-prod.us-east-2.elasticbeanstalk.com/",
   apiUrl: "http://ineedapiapp-prod.us-east-2.elasticbeanstalk.com/api",
   // apiUrl: 'https://fix-it-api-lf7.conveyor.cloud/api\
 };
